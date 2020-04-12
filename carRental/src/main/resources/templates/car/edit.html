@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta content="Supplier Relationship Management (SRM) Web Application for the Golden Dome Market"
+          name="description">
+    <meta content="O. Kalu" name="author">
+    <link href="favicon.ico" rel="icon">
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-LV/SIoc08vbV9CCeAwiz7RJZMI5YntsH8rGov0Y2nysmepqMWVvJqds6y0RaxIXT" crossorigin="anonymous">-->
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sketchy/bootstrap.min.css" rel="stylesheet" integrity="sha384-2kOE+STGAkgemIkUbGtoZ8dJLqfvJ/xzRnimSkQN7viOfwRvWseF7lqcuNXmjwrL" crossorigin="anonymous">-->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css"
+          integrity="sha384-bzjLLgZOhgXbSvSc5A9LWWo/mSIYf7U7nFbmYIB2Lgmuiw3vKGJuu+abKoaTx4W6" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main-styles.css}" type="text/css">
+    <title>The Car Rental Program - Cars</title>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container" style="margin-top: 2em;">
+        <form id="carForm" method="post" action="/employee/ncars/edit" th:object="${car}">
+            <fieldset>
+                <legend>Edit Car Form</legend>
+                <div class="container" style="margin-top: 1em;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" name="carId" th:value="${car.carId}" />
+                            <div class="form-group">
+                                <label for="customerNumber">Car Vin number</label>
+                                <small><span th:if="${#fields.hasErrors('carVinNumber')}" th:errors="*{carVinNumber}"
+                                             class="alert alert-danger"></span></small>
+                                <input id="carVinNumber" name="carVinNumber" type="text" class="form-control" th:value="${car.carVinNumber}" required autofocus="autofocus">
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">Plate Number</label>
+                                <span th:if="${#fields.hasErrors('plateNumber')}" th:errors="plateNumber"
+                                      class="alert alert-danger"></span>
+                                <input id="plateNumber" name="plateNumber" type="text" class="form-control" th:value="${car.plateNumber}" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Make</label>
+                                <span th:if="${#fields.hasErrors('make')}" th:errors="*{make}"
+                                      class="alert alert-danger"></span>
+                                <input id="make" name="make" type="text" class="form-control" th:value="${car.make}">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Model</label>
+                                <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
+                                      class="alert alert-danger"></span>
+                                <input id="model" name="model" type="text" class="form-control" th:value="${car.model}" required="required">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        	<div class="form-group">
+                                <label for="email">Year</label>
+                                <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"
+                                      class="alert alert-danger"></span>
+                                <input id="year" name="year" type="text" class="form-control" th:value="${car.year}">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactPhoneNumber">Catagory Name</label>
+                                <span th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"
+                                      class="alert alert-danger"></span>
+                                <input id="categoryName" name="categoryName" type="text" class="form-control" th:value="${car.categoryName}">
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth">Car Status</label>
+                                <span th:if="${#fields.hasErrors('carStatus')}" th:errors="*{carStatus}"
+                                      class="alert alert-danger"></span>
+                                 <select id="carStatus" name="carStatus" class="form-control" th:value="${car.carStatus}" required="required">
+                                 	<option value="available">Available</option>
+                                 	<option value="unavailable">Not Available</option>
+                                 </select>     
+                            </div>
+                            <div class="form-group">
+                                <label for="contactPhoneNumber">Price per day</label>
+                                <span th:if="${#fields.hasErrors('pricePerDay')}" th:errors="*{pricePerDay}"
+                                      class="alert alert-danger"></span>
+                                <input id="pricePerDay" name="pricePerDay" type="text" class="form-control" th:value="${car.pricePerDay}">
+                            </div>
+                            <div style="float:right;">
+                                <button id="btnReset" type="reset" class="btn btn-outline-info" style="margin-right: 2em;">Reset</button>
+                                <a href="/employee/ncars" class="btn btn-outline-warning" style="margin-right: 2em;">Cancel</a>
+                                <button id="btnSubmit" type="submit" class="btn btn-outline-primary">Edit Car</button>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- ================================================== -->
+    <!-- Bootstrap core JavaScript source files -->
+    <!-- Placed at the end of the document -->
+    <script crossorigin="anonymous"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
