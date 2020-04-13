@@ -1,5 +1,7 @@
 package edu.miu.carRental;
 
+
+
 import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
@@ -34,8 +36,8 @@ public class CarRentalApplication {
     private ApiInfo apiInfo() {
         return new ApiInfo(
           "CarRental API", 
-          "Implementation of CarRental API March 2020", 
-          "Tesfai", 
+          "Implementation of CarRental API April 2020", 
+          "TOGETHER TEAM", 
           "Terms of service", 
           null, 
           "", 
