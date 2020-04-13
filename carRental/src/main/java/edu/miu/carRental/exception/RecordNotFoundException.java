@@ -1,4 +1,4 @@
-package edu.miu.carRental.exceptions;
+package edu.miu.carRental.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

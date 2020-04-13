@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.miu.carRental.domain.Customer;
-import edu.miu.carRental.exceptions.RecordNotFoundException;
+import edu.miu.carRental.exception.RecordNotFoundException;
 import edu.miu.carRental.repository.CustomerRepository;
 import edu.miu.carRental.service.CustomerService;
 

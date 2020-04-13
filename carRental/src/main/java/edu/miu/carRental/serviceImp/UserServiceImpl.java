@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import edu.miu.carRental.config.CarRentalWebSecurity;
 import edu.miu.carRental.domain.User;
-import edu.miu.carRental.exceptions.RecordNotFoundException;
+import edu.miu.carRental.exception.RecordNotFoundException;
 import edu.miu.carRental.repository.UserRepository;
 import edu.miu.carRental.service.UserService;
 

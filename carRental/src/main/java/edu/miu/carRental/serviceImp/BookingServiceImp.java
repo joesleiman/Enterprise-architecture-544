@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import edu.miu.carRental.domain.Booking;
-import edu.miu.carRental.exceptions.RecordNotFoundException;
+import edu.miu.carRental.exception.RecordNotFoundException;
 import edu.miu.carRental.repository.BookingRepository;
 import edu.miu.carRental.service.BookingService;
 
