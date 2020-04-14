@@ -1,4 +1,12 @@
+# Eclipse
+.classpath
+.project
+.settings/
 bin/
+.eclipse
+
+# Maven
+log/
 target/
 *.class
 *.jar
@@ -7,4 +15,3 @@ target/
 *.logs
 *.iml
 .idea/
-.eclipse
