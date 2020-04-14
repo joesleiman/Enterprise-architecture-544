@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,22 +31,22 @@ public class Booking implements Serializable{
 	private Long bookingId;
 	
 	@Column(name = "reference_number", nullable = false, unique = true)
-	@NotNull(message = "*Please provide reference number")
+	@NotEmpty
 	private String referenceNumber;
 	
 	@Column(name = "booking_date", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "*Please provide booking date")
+	@NotNull(message = "{Validation.required}")
 	private LocalDate bookingDate;
 
 	@Column(name = "start_date", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "*Please provide booking start date")
+	@NotNull(message = "{Validation.required}")
     private LocalDate startDate;
 
 	@Column(name = "end_date", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "*Please provide booking end date")
+	@NotNull(message = "{Validation.required}")
     private LocalDate endDate;
 	
 	@Column(name = "total_price", nullable = false)
@@ -52,20 +54,20 @@ public class Booking implements Serializable{
 	private Double totalPrice;
 	
 	@Column(name = "booking_status", nullable = false)
-	@NotNull(message = "*Please provide booking status")
+	@NotEmpty
 	private String bookingStatus;
 	
-	//@ManyToOne(cascade = CascadeType.ALL)
+	@Valid
 	@ManyToOne
 	@JoinColumn(name = "car_id", nullable = false)
 	private Car car;
 	
-	//@OneToOne(cascade = CascadeType.ALL)
+	@Valid
 	@OneToOne
 	@JoinColumn(name="payment_id", nullable = false, unique = true)
 	private Payment payment;
 	
-	//@ManyToOne(cascade = CascadeType.ALL)
+	@Valid
 	@ManyToOne
 	@JoinColumn(name="customer_id", nullable = false)
 	private Customer customer;

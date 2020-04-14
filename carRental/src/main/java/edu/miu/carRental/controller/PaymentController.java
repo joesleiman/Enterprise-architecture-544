@@ -2,6 +2,8 @@ package edu.miu.carRental.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +25,7 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	@PostMapping("/payment")
-    public Payment add(@RequestBody Payment payment){
+    public Payment add(@Valid @RequestBody Payment payment){
         return paymentService.save(payment);
     }
 	
@@ -41,7 +43,7 @@ public class PaymentController {
    
     @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @PutMapping("/employee/payments")
-    public Payment updatePayment(@RequestBody Payment payment){
+    public Payment updatePayment(@Valid @RequestBody Payment payment){
         return paymentService.save(payment);
     }
     @PreAuthorize("hasAnyRole('ADMIN')")

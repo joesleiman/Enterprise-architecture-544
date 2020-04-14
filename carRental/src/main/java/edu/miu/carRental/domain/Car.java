@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cars")
@@ -18,35 +20,37 @@ public class Car {
 	private Long carId;
 	
 	@Column(name = "car_vin_number")
-	@NotNull(message = "*Please provide vehicle number")
+	@NotEmpty
+	@Size(min = 4, max = 19, message = "{Size.name}")
 	private String carVinNumber;
 	
 	@Column(name = "plate_number")
-	@NotNull(message = "*Please provide plate number")
+	@NotEmpty
+	@Size(min = 4, max = 19, message = "{Size.name}")
     private String plateNumber;
 	
 	@Column(name = "make")
-	@NotNull(message = "*Please provide make")
+	@NotEmpty
     private String make;
 	
 	@Column(name = "model")
-	@NotNull(message = "*Please provide model")
+	@NotEmpty
     private String model;
 	
 	@Column(name = "year")
-	@NotNull(message = "*Please provide year")
+	@NotEmpty
     private Integer year;
 	
 	@Column(name = "category_name")
-	@NotNull(message = "*Please provide category name")   
+	@NotEmpty   
     private String categoryName;
 	
 	@Column(name = "car_status")
-	@NotNull(message = "*Please provide car status")   
+	@NotEmpty   
     private String carStatus;
 	
 	@Column(name = "price_per_day")
-	@NotNull(message = "*Please provide car price per day")   
+	@NotEmpty   
     private Double pricePerDay;
 	
 	public Car() {

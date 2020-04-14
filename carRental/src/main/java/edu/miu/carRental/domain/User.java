@@ -15,9 +15,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,41 +32,41 @@ public class User {
 	private long userId;
 	
 	@Column(name = "first_name")
-	@NotNull(message = "*Please provide first name")
+	@NotEmpty
 	private String firstName;
 	
 	@Column(name = "last_name")
-	@NotNull(message = "*Please provide last name")
+	@NotEmpty
 	private String lastName;
 	
 	@Column(name = "date_of_birth")
-	@NotNull(message = "*Please provide date of birth")
+	@NotNull(message = "{Validation.required}")
 	@DateTimeFormat(pattern = "YYYY/MM/dd")
 	private LocalDate dateOfBirth;
 	
 	@Column(name = "email")
-	@NotNull(message = "*Please provide email")
 	@Email(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,3})$",message = "* please provide a valid email")
 	private String email;
 	
 	@Column(name = "phone_number")
-	@NotNull(message = "*Please provide phone number")
+	@NotEmpty
 	@Pattern(regexp = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$", message = "* please provide valid phone number")
 	private String phoneNumber;
 	
 	@Column(name = "user_name", unique = true)
-	@NotNull(message = "*Please provide user name") 
+	@NotEmpty 
     private String username;
 	
 	@Column(name = "password")
-	@NotNull(message = "*Please provide password") 
+	@NotEmpty
+	@Size(min = 4, max = 19, message = "{Size.name}")
     private String password;
 	
 	
 	@NotNull(message = "*Please provide role") 
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<Role> roles;
+	private List<@Valid Role> roles;
 	
 	public User() {
 		

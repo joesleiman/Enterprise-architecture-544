@@ -10,7 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,27 +28,28 @@ public class Payment {
 	
 	@Column(name = "payment_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "*Please provide payment date") 
+	@NotNull(message = "{Validation.required}") 
 	private LocalDate paymentDate;
 
 	@Column(name = "card_number")
-	@NotNull(message = "*Please provide payment card number") 
+	@NotEmpty
+	@Size(min = 16, max = 16, message = "{Size.name}")
     private Long cardNumber;
 
 	@Column(name = "card_cvv")
-	@NotNull(message = "*Please provide payment card CVV") 
+	@NotEmpty
+	@Size(min = 3, max = 4, message = "{Size.name}")
     private Integer cardCVV;
     
 	@Column(name = "total_price") 
     private Double totalPrice;
     
 	@Column(name = "payment_status")
-	@NotNull(message = "*Please provide payment payment status")  
+	@NotEmpty 
 	private String paymentStatus;
 	
 	@ManyToOne
-	//@Column(name="address_id", nullable = false)
-	@NotNull(message = "*Please provide billingAddress") 
+	@Valid
     private Address billingAddress;
 	
 	public Payment() {

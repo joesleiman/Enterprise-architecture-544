@@ -6,7 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "addresses")
@@ -18,23 +21,24 @@ public class Address {
 	private Long addressId;
 	
 	@Column(name = "street_line")
-	@NotNull(message = "*Please provide street number")
+	@NotEmpty
     private String streetLine;
 	
 	@Column(name = "city")
-	@NotNull(message = "*Please provide city name")
+	@NotEmpty
     private String city;
     
 	@Column(name = "state")
-	@NotNull(message = "*Please provide state name")
+	@NotEmpty
     private String state;
     
 	@Column(name = "zip_code")
-	@NotNull(message = "*Please provide zip/area code")
+	@NotEmpty
+	@Range(min=5, max=9, message= "{Range.zipcode}")
     private Integer zipCode;
     
 	@Column(name = "country")
-	@NotNull(message = "*Please provide country name")
+	@NotEmpty
     private String country;
 	
 	public Address(){

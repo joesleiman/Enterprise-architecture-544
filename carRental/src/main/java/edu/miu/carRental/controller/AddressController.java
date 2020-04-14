@@ -2,6 +2,8 @@ package edu.miu.carRental.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +28,7 @@ public class AddressController {
 	}
 	
 	@PostMapping("/address")
-    public Address add(@RequestBody Address address){
+    public Address add(@Valid @RequestBody Address address){
         return addressService.save(address);
     }
 	
@@ -43,7 +45,7 @@ public class AddressController {
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("admin/address")
-    public Address addAddress(@RequestBody Address address){
+    public Address addAddress(@Valid @RequestBody Address address){
         return addressService.save(address);
     }
     @PreAuthorize("hasAnyRole('ADMIN')")

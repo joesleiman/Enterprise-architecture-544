@@ -3,6 +3,8 @@ package edu.miu.carRental.controller;
 import java.util.List;
 import java.util.Random;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +24,7 @@ public class BookingController {
 	private BookingService bookingService;
 	
 	@PostMapping("/booking")
-  	public Booking addBookingPublic(@RequestBody Booking booking) {
+  	public Booking addBookingPublic(@Valid @RequestBody Booking booking) {
 		booking.setReferenceNumber(getSaltString());
   		return bookingService.save(booking);
   	}
@@ -60,14 +62,14 @@ public class BookingController {
 	
 	@PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
 	@PostMapping("/employee/bookings")
-	public Booking addBooking(@RequestBody Booking booking) {
+	public Booking addBooking(@Valid @RequestBody Booking booking) {
 		booking.setReferenceNumber(getSaltString());
 		return bookingService.save(booking);
 	}
 	
 	@PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
 	@PutMapping("/employee/bookings")
-	public Booking updateBooking(@RequestBody Booking booking) {
+	public Booking updateBooking(@Valid @RequestBody Booking booking) {
 		return bookingService.save(booking);
 	}
 	

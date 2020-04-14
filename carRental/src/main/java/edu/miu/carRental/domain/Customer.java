@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -19,20 +20,20 @@ public class Customer {
 	private Long customerId;
 	
 	@Column(name = "first_name")
-	@NotNull(message = "*Please provide first name")
+	@NotEmpty
 	private String firstName;
 	
 	@Column(name = "last_name")
-	@NotNull(message = "*Please provide last name")
+	@NotEmpty
 	private String lastName;
 	
 	@Column(name = "customer_email")
-	@NotNull(message = "*Please provide customer email")
-	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,3})$",message = "* please provide a valid email")
+	@NotEmpty
+	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,3})$", message = "{Email}")
 	private String email;
 	
 	@Column(name = "date_of_birth")
-	@NotNull(message = "*Please provide date of birth")
+	@NotNull(message = "{Validation.required}")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	

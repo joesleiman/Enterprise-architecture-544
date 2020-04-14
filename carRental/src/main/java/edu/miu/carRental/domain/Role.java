@@ -11,7 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,13 +26,13 @@ public class Role {
 	private long roleId;
 	
 	@Column(name = "role_name")
-	@NotNull(message = "*Please provide role name")
+	@NotEmpty
 	private String roleName;
 
-	@NotNull(message = "*Please provide User") 
+	@NotNull(message = "*Please provide user") 
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER,mappedBy = "roles")
 	@JsonIgnore
-	private List<User> users;
+	private List<@Valid User> users;
 	
 	public Role(){
 		

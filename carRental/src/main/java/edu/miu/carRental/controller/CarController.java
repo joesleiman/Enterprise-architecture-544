@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -75,12 +77,12 @@ public class CarController {
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("admin/cars")
-    public Car addCar(@RequestBody Car car){
+    public Car addCar(@Valid @RequestBody Car car){
         return carService.save(car);
     }
     @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @PutMapping("employee/cars")
-    public Car updateCar(@RequestBody Car car){
+    public Car updateCar(@Valid @RequestBody Car car){
         return carService.save(car);
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
