@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,28 +63,23 @@ public class CarController {
   		return cars;
   	}
     
-    @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @GetMapping("employee/cars")
     public List<Car> getAllCars() {
         return carService.findAll();
     }
-    @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @GetMapping("employee/cars/{id}")
     public Car getCar(@PathVariable Long id){
         Car car= carService.findById(id);
         return car;
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("admin/cars")
     public Car addCar(@Valid @RequestBody Car car){
         return carService.save(car);
     }
-    @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @PutMapping("employee/cars")
     public Car updateCar(@Valid @RequestBody Car car){
         return carService.save(car);
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value ="admin/cars/{id}")
     public void deleteCar(@PathVariable Long id){
         carService.delete(id);

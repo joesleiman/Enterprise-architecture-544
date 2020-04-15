@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.miu.carRental.config.CarRentalWebSecurity;
 import edu.miu.carRental.domain.User;
 import edu.miu.carRental.exception.RecordNotFoundException;
 import edu.miu.carRental.repository.UserRepository;
@@ -15,13 +14,11 @@ import edu.miu.carRental.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
-	private CarRentalWebSecurity passwordEncoderfun;
 	
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository,CarRentalWebSecurity passwordEncoderfun ) {
+	public UserServiceImpl(UserRepository userRepository ) {
 		// TODO Auto-generated constructor stub
 		this.userRepository=userRepository;
-		this.passwordEncoderfun=passwordEncoderfun;
 	}
 	@Override
 	public List<User> findAll() {
@@ -39,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	public User save(User user) {
 		// TODO Auto-generated method stub
 		String pass=user.getPassword();
-		user.setPassword(passwordEncoderfun.passwordEncoder().encode(pass));
+		user.setPassword(pass);
 		return userRepository.save(user);
 	}
 
@@ -61,7 +58,7 @@ public class UserServiceImpl implements UserService {
                 	userToUpdate.setLastName(user.getLastName());
                 	userToUpdate.setPhoneNumber(user.getPhoneNumber());
                 	userToUpdate.setRoles(user.getRoles());
-                	userToUpdate.setPassword(passwordEncoderfun.passwordEncoder().encode(user.getPassword()));
+                	userToUpdate.setPassword(user.getPassword());
                     return userRepository.save(userToUpdate);
                 }).orElseGet(() -> {
                     return userRepository.save(user);

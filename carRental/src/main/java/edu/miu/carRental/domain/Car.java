@@ -38,7 +38,7 @@ public class Car {
     private String model;
 	
 	@Column(name = "year")
-	@NotEmpty
+//	@NotEmpty
     private Integer year;
 	
 	@Column(name = "category_name")
@@ -50,7 +50,7 @@ public class Car {
     private String carStatus;
 	
 	@Column(name = "price_per_day")
-	@NotEmpty   
+//	@NotEmpty   
     private Double pricePerDay;
 	
 	public Car() {

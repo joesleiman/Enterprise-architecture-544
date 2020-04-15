@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,34 +22,28 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	//@PreAuthorize("hasAnyRole('USER')")
     @PostMapping("/customer_info")
     public Customer add(@Valid @RequestBody Customer customer){
         return customerService.save(customer);
     }
 	
-	@PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @GetMapping("/employee/customers")
     public List<Customer> getAllCustomer() {
         return customerService.findAll();
     }
-    @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @GetMapping("employee/customers/{id}")
     public Customer getCustomer(@PathVariable Long id){
     	Customer customer= customerService.findById(id);
         return customer;
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("admin/customers")
     public Customer addCustomer(@Valid @RequestBody Customer customer){
         return customerService.save(customer);
     }
-    @PreAuthorize("hasAnyRole('EMPLOYEE','ADMIN')")
     @PutMapping("employee/customers")
     public Customer updateCustomer(@Valid @RequestBody Customer customer){
         return customerService.save(customer);
     }
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value ="admin/customers/{id}")
     public void deleteCustomer(@PathVariable Long id){
     	customerService.delete(id);
