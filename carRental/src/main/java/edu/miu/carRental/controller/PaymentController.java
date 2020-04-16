@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,28 +23,33 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 
-	@PostMapping("/payment")
-	public Payment add(@Valid @RequestBody Payment payment) {
-		return paymentService.save(payment);
-	}
-
-	@GetMapping("/employee/payments")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("payment/get_all")
 	public List<Payment> getAllPayments() {
 		return paymentService.findAll();
 	}
 
-	@GetMapping("/employee/payments/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("payment/get/{id}")
 	public Payment getPayment(@PathVariable Long id) {
 		Payment payment = paymentService.findById(id);
 		return payment;
 	}
 
-	@PutMapping("/employee/payments")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PostMapping("payment/add")
+	public Payment add(@Valid @RequestBody Payment payment) {
+		return paymentService.save(payment);
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PutMapping("payment/update")
 	public Payment updatePayment(@Valid @RequestBody Payment payment) {
 		return paymentService.save(payment);
 	}
 
-	@DeleteMapping(value = "/admin/payments/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@DeleteMapping(value = "payment/delete/{id}")
 	public void deletePayment(@PathVariable Long id) {
 		paymentService.delete(id);
 	}

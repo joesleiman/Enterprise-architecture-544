@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,59 +24,69 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingService;
 
-	@PostMapping("/booking")
+	@PostMapping("booking/add_public")
 	public Booking addBookingPublic(@Valid @RequestBody Booking booking) {
 		booking.setReferenceNumber(getSaltString());
 		return bookingService.save(booking);
 	}
 
-	@GetMapping("/search_booking/{referenceNumber}")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	@GetMapping("booking/search/{referenceNumber}")
 	public List<Booking> searchBooking(@PathVariable String referenceNumber) {
 		return bookingService.searchBookings(referenceNumber);
 	}
 
-	@PutMapping("/cancel_booking/{referenceNumber}")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	@PutMapping("booking/cancel/{referenceNumber}")
 	public Booking cancelBooking(@PathVariable String referenceNumber) {
 		return bookingService.customerCancelBooking(referenceNumber, "Canceled");
 	}
 
-	@GetMapping("/booking/{referenceNumber}")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
+	@GetMapping("booking/get_reference_number/{referenceNumber}")
 	public Booking getBooking(@PathVariable String referenceNumber) {
 		return bookingService.findByReferenceNumber(referenceNumber);
 	}
 
-	@GetMapping("employee/bookings")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("booking/get_all")
 	public List<Booking> getAllBookings() {
 		return bookingService.findAll();
 	}
 
-	@GetMapping("/employee/bookings/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("booking/get_id/{id}")
 	public Booking getBooking(@PathVariable Long id) {
 		return bookingService.findById(id);
 	}
 
-	@PostMapping("/employee/bookings")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PostMapping("booking/add")
 	public Booking addBooking(@Valid @RequestBody Booking booking) {
 		booking.setReferenceNumber(getSaltString());
 		return bookingService.save(booking);
 	}
 
-	@PutMapping("/employee/bookings")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PutMapping("booking/update")
 	public Booking updateBooking(@Valid @RequestBody Booking booking) {
 		return bookingService.save(booking);
 	}
 
-	@DeleteMapping(value = "/employee/bookings/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@DeleteMapping(value = "booking/delete/{id}")
 	public void deleteBooking(@PathVariable Long id) {
 		bookingService.delete(id);
 	}
 
-	@PutMapping("/employee/bookings/change_status")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PutMapping("booking/change_status")
 	public Booking changeBookingStatus(@RequestBody Booking booking) {
 		return bookingService.changeBookingStatus(booking.getReferenceNumber(), booking.getBookingStatus());
 	}
 
-	@GetMapping("/employee/bookings/search/{searchString}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("bookings/search_string/{searchString}")
 	public List<Booking> searchBookings(@PathVariable String searchString) {
 		return bookingService.searchBookings(searchString);
 	}
@@ -84,7 +95,7 @@ public class BookingController {
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		StringBuilder salt = new StringBuilder();
 		Random rnd = new Random();
-		while (salt.length() < 8) { // length of the random string.
+		while (salt.length() < 8) {
 			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
 			salt.append(SALTCHARS.charAt(index));
 		}

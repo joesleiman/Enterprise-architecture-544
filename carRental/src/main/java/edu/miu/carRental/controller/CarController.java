@@ -33,18 +33,18 @@ public class CarController {
 	@Autowired
 	private BookingService bookingService;
 
-	@GetMapping("/cars")
+	@GetMapping("car/get_all_public")
 	public List<Car> getAllCarsPublic() {
 		return carService.findAll();
 	}
 
-	@GetMapping("/cars/{id}")
+	@GetMapping("car/get_public/{id}")
 	public Car getCarPublic(@PathVariable Long id) {
 		Car car = carService.findById(id);
 		return car;
 	}
 
-	@GetMapping("/check_availiable_cars")
+	@GetMapping("car/check_availiable")
 	public List<Car> getAvailableCars(@RequestParam String start, String end) {
 		List<Car> cars = carService.findAll().stream().filter(car -> car.getCarStatus().equals("available"))
 				.collect(Collectors.toList());
@@ -61,29 +61,33 @@ public class CarController {
 		return cars;
 	}
 
-	@GetMapping("employee/cars")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("car/get_all")
 	public List<Car> getAllCars() {
 		return carService.findAll();
 	}
 
-	@GetMapping("employee/cars/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@GetMapping("car/get/{id}")
 	public Car getCar(@PathVariable Long id) {
 		Car car = carService.findById(id);
 		return car;
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("admin/cars")
+	@PostMapping("car/add")
 	public Car addCar(@Valid @RequestBody Car car) {
 		return carService.save(car);
 	}
 
-	@PutMapping("employee/cars")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PutMapping("car/update")
 	public Car updateCar(@Valid @RequestBody Car car) {
 		return carService.save(car);
 	}
 
-	@DeleteMapping(value = "admin/cars/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@DeleteMapping(value = "car/delete/{id}")
 	public void deleteCar(@PathVariable Long id) {
 		carService.delete(id);
 	}

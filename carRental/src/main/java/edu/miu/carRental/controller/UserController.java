@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -77,27 +78,32 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping(value = "admin/users")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@GetMapping(value = "user/get_all")
 	public List<User> list() {
 		return userService.findAll();
 	}
 
-	@PostMapping(value = "admin/users/add")
-	public User addNewUser(@Valid @RequestBody User user) {
-		return userService.save(user);
-	}
-
-	@GetMapping(value = "admin/users/get/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@GetMapping(value = "user/get/{userId}")
 	public User getUserById(@PathVariable Long userId) {
 		return userService.findById(userId);
 	}
 
-	@PutMapping(value = "admin/users/update/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@PostMapping(value = "user/add")
+	public User addNewUser(@Valid @RequestBody User user) {
+		return userService.save(user);
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@PutMapping(value = "user/update/{userId}")
 	public User updateUser(@Valid @RequestBody User editedUser, @PathVariable Long userId) {
 		return userService.update(editedUser, userId);
 	}
 
-	@DeleteMapping(value = "admin/users/delete/{userId}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@DeleteMapping(value = "user/delete/{userId}")
 	public void deleteUser(@PathVariable Long userId) {
 		userService.delete(userId);
 	}

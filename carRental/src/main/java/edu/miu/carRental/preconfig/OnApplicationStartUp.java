@@ -28,9 +28,14 @@ public class OnApplicationStartUp {
 	}
 
 	private void createAdminUser() {
+		List<User> users = userService.findAll();
+		Long count = users.stream()
+						  .filter(userElm -> userElm.getUsername().equalsIgnoreCase("admin"))
+						  .count();
+		if (count > 0) return;
 		User user = new User();
-		user.setUsername("mosad");
-		user.setPassword("admin123");
+		user.setUsername("admin");
+		user.setPassword("admin");
 		userService.addAdminUser(user);
 	}
 
