@@ -12,7 +12,7 @@ import edu.miu.carRental.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+	
 	private UserRepository userRepository;
 	
 	@Autowired
@@ -48,7 +48,6 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public User update(User user, Long id) {
-		// TODO Auto-generated method stub
 		return userRepository.findById(id)
                 .map(userToUpdate -> {
                 	userToUpdate.setDateOfBirth(user.getDateOfBirth());

@@ -71,19 +71,24 @@ public class User {
 	public User() {
 		
 	}
-	public User(User user) {
-		this.userId=user.getUserId();
-		this.username=user.getUsername();
-		this.password=user.getPassword();
-		this.email=user.getEmail();
-		this.dateOfBirth=user.getDateOfBirth();
-		this.firstName=user.getFirstName();
-		this.lastName=user.getLastName();
-		this.phoneNumber=user.getPhoneNumber();
-		this.roles=user.getRoles();
-		
-		
+	
+	public User(@NotEmpty String firstName, @NotEmpty String lastName,
+			@NotNull(message = "{Validation.required}") LocalDate dateOfBirth,
+			@Email(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,3})$", message = "* please provide a valid email") String email,
+			@NotEmpty @Pattern(regexp = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$", message = "* please provide valid phone number") String phoneNumber,
+			@NotEmpty String username, @NotEmpty @Size(min = 4, max = 19, message = "{Size.name}") String password,
+			@NotNull(message = "*Please provide role") List<@Valid Role> roles) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
 	}
+
 	public List<Role> getRoles() {
 		return roles;
 	}
