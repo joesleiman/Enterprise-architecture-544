@@ -79,7 +79,6 @@ public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFil
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.UNAUTHORIZED.value(),
 				HttpStatus.UNAUTHORIZED.name(), messages);
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
-
 	}
 
 }

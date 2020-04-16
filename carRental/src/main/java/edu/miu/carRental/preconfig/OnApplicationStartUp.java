@@ -1,5 +1,6 @@
 package edu.miu.carRental.preconfig;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class OnApplicationStartUp {
 	@EventListener
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		fillRoleTable();
-//		createAdminUser();
+		createAdminUser();
 	}
 
 	private void createAdminUser() {
@@ -38,6 +39,11 @@ public class OnApplicationStartUp {
 						  .count();
 		if (count > 0) return;
 		User user = new User();
+		user.setFirstName("admin");
+		user.setLastName("admin");
+		user.setEmail("admin@miu.edu");
+		user.setPhoneNumber("6418192921");
+		user.setDateOfBirth(LocalDate.parse("1990-03-22"));
 		user.setUsername("admin");
 		user.setPassword("admin");
 		userService.addAdminUser(user);
