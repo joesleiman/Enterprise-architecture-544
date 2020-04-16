@@ -1,4 +1,4 @@
-package edu.miu.carRental.serviceImp;
+package edu.miu.carRental.service.impl;
 
 import java.util.List;
 
