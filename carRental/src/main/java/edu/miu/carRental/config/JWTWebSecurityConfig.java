@@ -1,4 +1,4 @@
-package edu.miu.carRental.security.config;
+package edu.miu.carRental.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,9 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import edu.miu.carRental.security.model.ExceptionHandlerFilter;
-import edu.miu.carRental.security.model.JwtTokenAuthorizationOncePerRequestFilter;
-import edu.miu.carRental.security.model.JwtUnAuthorizedResponseAuthenticationEntryPoint;
+import edu.miu.carRental.model.ExceptionHandlerFilter;
+import edu.miu.carRental.model.JwtTokenAuthorizationOncePerRequestFilter;
+import edu.miu.carRental.model.JwtUnAuthorizedResponseAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity

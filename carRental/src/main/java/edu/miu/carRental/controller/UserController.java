@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.miu.carRental.domain.User;
+import edu.miu.carRental.dto.JwtTokenRequest;
+import edu.miu.carRental.dto.JwtTokenResponse;
 import edu.miu.carRental.exception.AuthenticationException;
-import edu.miu.carRental.security.dto.req.JwtTokenRequest;
-import edu.miu.carRental.security.dto.res.JwtTokenResponse;
-import edu.miu.carRental.security.util.JwtTokenUtil;
 import edu.miu.carRental.service.UserService;
+import edu.miu.carRental.util.JwtTokenUtil;
 
 @RestController
 public class UserController {

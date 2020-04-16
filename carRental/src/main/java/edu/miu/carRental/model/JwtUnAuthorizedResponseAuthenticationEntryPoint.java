@@ -1,4 +1,4 @@
-package edu.miu.carRental.security.model;
+package edu.miu.carRental.model;
 
 import java.io.IOException;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package edu.miu.carRental.security.model;
+package edu.miu.carRental.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import edu.miu.carRental.exception.AuthenticationException;
 import edu.miu.carRental.exception.ExceptionResponse;
-import edu.miu.carRental.security.util.JwtTokenUtil;
+import edu.miu.carRental.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component

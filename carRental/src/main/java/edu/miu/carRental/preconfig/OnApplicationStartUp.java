@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import edu.miu.carRental.domain.Role;
 import edu.miu.carRental.domain.User;
 import edu.miu.carRental.repository.RoleRepository;
+import edu.miu.carRental.repository.UserRepository;
 import edu.miu.carRental.service.UserService;
 
 @Component
@@ -19,16 +20,19 @@ public class OnApplicationStartUp {
 	private UserService userService;
 
 	@Autowired
+	private UserRepository userRepo;
+
+	@Autowired
 	private RoleRepository roleRepo;
 
 	@EventListener
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		fillRoleTable();
-		createAdminUser();
+//		createAdminUser();
 	}
 
 	private void createAdminUser() {
-		List<User> users = userService.findAll();
+		List<User> users = userRepo.findAll();
 		Long count = users.stream()
 						  .filter(userElm -> userElm.getUsername().equalsIgnoreCase("admin"))
 						  .count();

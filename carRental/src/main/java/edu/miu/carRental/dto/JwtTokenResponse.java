@@ -1,4 +1,4 @@
-package edu.miu.carRental.security.dto.res;
+package edu.miu.carRental.dto;
 
 import java.io.Serializable;
 

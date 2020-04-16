@@ -1,4 +1,4 @@
-package edu.miu.carRental.security.util;
+package edu.miu.carRental.util;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import edu.miu.carRental.security.model.JwtUserDetails;
+import edu.miu.carRental.model.JwtUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;

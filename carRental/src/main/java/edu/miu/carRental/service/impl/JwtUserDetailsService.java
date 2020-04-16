@@ -1,4 +1,4 @@
-package edu.miu.carRental.security.service;
+package edu.miu.carRental.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import edu.miu.carRental.domain.User;
+import edu.miu.carRental.model.JwtUserDetails;
 import edu.miu.carRental.repository.UserRepository;
-import edu.miu.carRental.security.model.JwtUserDetails;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
