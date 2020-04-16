@@ -1,11 +1,10 @@
-package edu.miu.carRental.serviceImp;
+package edu.miu.carRental.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.miu.carRental.domain.Payment;
 import edu.miu.carRental.domain.Role;
 import edu.miu.carRental.exception.RecordNotFoundException;
 import edu.miu.carRental.repository.RoleRepository;
@@ -15,7 +14,7 @@ import edu.miu.carRental.service.RoleService;
 public class RoleServiceImp implements RoleService {
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Override
 	public List<Role> findAll() {
 		return roleRepository.findAll();
@@ -23,7 +22,8 @@ public class RoleServiceImp implements RoleService {
 
 	@Override
 	public Role findById(Long id) {
-		return roleRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Role with id : " + id + " is not available"));
+		return roleRepository.findById(id)
+				.orElseThrow(() -> new RecordNotFoundException("Role with id : " + id + " is not available"));
 	}
 
 	@Override
@@ -41,7 +41,6 @@ public class RoleServiceImp implements RoleService {
 		Role role = roleRepository.findById(id)
 				.orElseThrow(() -> new RecordNotFoundException("Role with id : " + id + " is not available"));
 		roleRepository.delete(role);
-		
 	}
 
 }
