@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,6 @@ import edu.miu.carRental.service.BookingService;
 import edu.miu.carRental.service.CarService;
 
 @RestController
-@CrossOrigin(allowedHeaders = "*")
 public class CarController {
 
     @Autowired
@@ -72,6 +72,7 @@ public class CarController {
         Car car= carService.findById(id);
         return car;
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("admin/cars")
     public Car addCar(@Valid @RequestBody Car car){
         return carService.save(car);

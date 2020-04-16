@@ -1,6 +1,7 @@
 package edu.miu.carRental.domain;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,49 +14,51 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long roleId;
-	
-	@Column(name = "role_name")
-	@NotEmpty
-	private String roleName;
 
-	@NotNull(message = "*Please provide user") 
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER,mappedBy = "roles")
-	@JsonIgnore
-	private List<@Valid User> users;
-	
-	public Role(){
-		
+	@Column(name = "role_name")
+	private String name;
+
+	@ManyToMany(mappedBy = "roles")
+	private Set<@Valid User> users;
+
+	public Role() {
+
 	}
-	public List<User> getUsers() {
+
+	public Role(@NotEmpty String roleName) {
+		super();
+		this.name = roleName;
+	}
+
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
+
 	public long getRoleId() {
 		return roleId;
 	}
+
 	public void setRoleId(long roleId) {
 		this.roleId = roleId;
 	}
-	public String getRoleName() {
-		return roleName;
+
+	public String getName() {
+		return name;
 	}
+
 	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+		this.name = roleName;
 	}
-	
 
 }

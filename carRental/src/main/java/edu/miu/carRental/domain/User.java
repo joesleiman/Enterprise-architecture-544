@@ -1,7 +1,7 @@
 package edu.miu.carRental.domain;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -58,38 +58,37 @@ public class User {
     private String username;
 	
 	@Column(name = "password")
-	@NotEmpty
-	@Size(min = 4, max = 19, message = "{Size.name}")
-    private String password;
-	
-	
-	@NotNull(message = "*Please provide role") 
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<@Valid Role> roles;
-	
+	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<@Valid Role> roles;
+
 	public User() {
-		
+
 	}
+
 	public User(User user) {
-		this.userId=user.getUserId();
-		this.username=user.getUsername();
-		this.password=user.getPassword();
-		this.email=user.getEmail();
-		this.dateOfBirth=user.getDateOfBirth();
-		this.firstName=user.getFirstName();
-		this.lastName=user.getLastName();
-		this.phoneNumber=user.getPhoneNumber();
-		this.roles=user.getRoles();
-		
-		
+		this.userId = user.getUserId();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.email = user.getEmail();
+		this.dateOfBirth = user.getDateOfBirth();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.phoneNumber = user.getPhoneNumber();
+		this.roles = user.getRoles();
+
 	}
-	public List<Role> getRoles() {
+
+	public Set<Role> getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -117,30 +116,39 @@ public class User {
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
+
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
