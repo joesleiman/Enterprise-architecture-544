@@ -2,7 +2,6 @@ package edu.miu.carRental.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,7 +71,8 @@ public class Booking implements Serializable {
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 
-	public Booking() { }
+	public Booking() {
+	}
 
 	public String getBookingStatus() {
 		return bookingStatus;
