@@ -21,8 +21,6 @@ import edu.miu.carRental.security.model.ExceptionHandlerFilter;
 import edu.miu.carRental.security.model.JwtTokenAuthorizationOncePerRequestFilter;
 import edu.miu.carRental.security.model.JwtUnAuthorizedResponseAuthenticationEntryPoint;
 
-
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -67,15 +65,14 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**", "/api/student/registration", "/v2/api-docs", "/configuration/ui",
 						"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
 				.permitAll().anyRequest().authenticated();
-
 		httpSecurity.addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
 		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
 	public void configure(WebSecurity webSecurity) {
-		webSecurity.ignoring().antMatchers(HttpMethod.POST, authenticationPath)
-				.antMatchers(HttpMethod.OPTIONS, "/**").and().ignoring().antMatchers("/h2/**/**");// Should not be in
-																									// Production!;
+		webSecurity.ignoring().antMatchers(HttpMethod.POST, authenticationPath).antMatchers(HttpMethod.OPTIONS, "/**")
+				.and().ignoring().antMatchers("/h2/**/**");
 	}
+
 }

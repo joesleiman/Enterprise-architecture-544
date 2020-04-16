@@ -14,7 +14,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,20 +52,15 @@ public class UserController {
 	@RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
 			throws AuthenticationException {
-
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
-
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
 		return ResponseEntity.ok(new JwtTokenResponse(token));
 	}
 
 	private void authenticate(String username, String password) {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(password);
-
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
@@ -74,14 +68,12 @@ public class UserController {
 		} catch (BadCredentialsException e) {
 			throw new AuthenticationException("INVALID_CREDENTIALS", e);
 		} catch (Exception e) {
-
 			throw new AuthenticationException("INVALID_CREDENTIALS", e);
 		}
 	}
 
 	@Autowired
 	public UserController(UserService userService) {
-		// TODO Auto-generated constructor stub
 		this.userService = userService;
 	}
 
@@ -109,4 +101,5 @@ public class UserController {
 	public void deleteUser(@PathVariable Long userId) {
 		userService.delete(userId);
 	}
+
 }

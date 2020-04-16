@@ -1,12 +1,9 @@
 package edu.miu.carRental.domain;
 
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "roles")
 public class Role {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long roleId;
@@ -28,9 +26,7 @@ public class Role {
 	@ManyToMany(mappedBy = "roles")
 	private Set<@Valid User> users;
 
-	public Role() {
-
-	}
+	public Role() { }
 
 	public Role(@NotEmpty String roleName) {
 		super();

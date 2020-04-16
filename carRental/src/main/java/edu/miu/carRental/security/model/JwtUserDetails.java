@@ -23,10 +23,8 @@ public class JwtUserDetails implements UserDetails {
 		this.id = id;
 		this.username = username;
 		this.password = password;
-
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(role));
-
 		this.authorities = authorities;
 	}
 

@@ -10,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -26,28 +24,19 @@ import edu.miu.carRental.exception.ExceptionResponse;
 @Order(1)
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
 			filterChain.doFilter(request, response);
 		} catch (RuntimeException e) {
-
-			logger.info("Start of handleAuthenticationError");
 			List<String> messages = new ArrayList<String>();
 			messages.add("You would need to provide a valid Jwt Token to Access This resource");
-
 			ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.UNAUTHORIZED.value(),
 					HttpStatus.UNAUTHORIZED.name(), messages);
-
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 			response.setContentType("application/json");
 			response.getWriter().write(convertObjectToJson(exceptionResponse));
-
-			logger.info("End of handleAuthenticationError {} ", response.toString());
-
 		}
 	}
 
@@ -58,4 +47,5 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(object);
 	}
+
 }

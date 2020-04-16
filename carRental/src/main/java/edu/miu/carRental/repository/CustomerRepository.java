@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import edu.miu.carRental.domain.Customer;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long>{
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 }

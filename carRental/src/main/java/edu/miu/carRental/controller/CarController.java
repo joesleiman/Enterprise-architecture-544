@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,62 +27,65 @@ import edu.miu.carRental.service.CarService;
 @RestController
 public class CarController {
 
-    @Autowired
-    private CarService carService;
-    
-    @Autowired
-	private BookingService bookingService;
-    
-    @GetMapping("/cars")
-    public List<Car> getAllCarsPublic() {
-        return carService.findAll();
-    }    
-    
-    @GetMapping("/cars/{id}")
-    public Car getCarPublic(@PathVariable Long id){
-        Car car= carService.findById(id);
-        return car;
-    }
-    
-    @GetMapping("/check_availiable_cars")
-  	public List<Car> getAvailableCars(@RequestParam String start, String end){
-  		List<Car> cars = carService.findAll().stream()
-  				.filter(car->car.getCarStatus().equals("available")).collect(Collectors.toList());
-  		LocalDate startDate = LocalDate.parse(start, DateTimeFormatter.ISO_DATE);
-  		LocalDate endDate = LocalDate.parse(end, DateTimeFormatter.ISO_DATE);
-  		List<Booking> bookings = bookingService.getBookingsWithinRange(startDate, endDate);  		
-  		if(!bookings.isEmpty()) {
-  			List<Long> carIds = new ArrayList<>();
-  			for(Booking b: bookings){
-  				carIds.add(b.getCar().getCarId());
-  			}
-  			cars = cars.stream().filter(car->!carIds.contains(car.getCarId())).collect(Collectors.toList());
-  		}  
-  		
-  		return cars;
-  	}
-    
-    @GetMapping("employee/cars")
-    public List<Car> getAllCars() {
-        return carService.findAll();
-    }
-    @GetMapping("employee/cars/{id}")
-    public Car getCar(@PathVariable Long id){
-        Car car= carService.findById(id);
-        return car;
-    }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("admin/cars")
-    public Car addCar(@Valid @RequestBody Car car){
-        return carService.save(car);
-    }
-    @PutMapping("employee/cars")
-    public Car updateCar(@Valid @RequestBody Car car){
-        return carService.save(car);
-    }
-    @DeleteMapping(value ="admin/cars/{id}")
-    public void deleteCar(@PathVariable Long id){
-        carService.delete(id);
-    }
-}
+	@Autowired
+	private CarService carService;
 
+	@Autowired
+	private BookingService bookingService;
+
+	@GetMapping("/cars")
+	public List<Car> getAllCarsPublic() {
+		return carService.findAll();
+	}
+
+	@GetMapping("/cars/{id}")
+	public Car getCarPublic(@PathVariable Long id) {
+		Car car = carService.findById(id);
+		return car;
+	}
+
+	@GetMapping("/check_availiable_cars")
+	public List<Car> getAvailableCars(@RequestParam String start, String end) {
+		List<Car> cars = carService.findAll().stream().filter(car -> car.getCarStatus().equals("available"))
+				.collect(Collectors.toList());
+		LocalDate startDate = LocalDate.parse(start, DateTimeFormatter.ISO_DATE);
+		LocalDate endDate = LocalDate.parse(end, DateTimeFormatter.ISO_DATE);
+		List<Booking> bookings = bookingService.getBookingsWithinRange(startDate, endDate);
+		if (!bookings.isEmpty()) {
+			List<Long> carIds = new ArrayList<>();
+			for (Booking b : bookings) {
+				carIds.add(b.getCar().getCarId());
+			}
+			cars = cars.stream().filter(car -> !carIds.contains(car.getCarId())).collect(Collectors.toList());
+		}
+		return cars;
+	}
+
+	@GetMapping("employee/cars")
+	public List<Car> getAllCars() {
+		return carService.findAll();
+	}
+
+	@GetMapping("employee/cars/{id}")
+	public Car getCar(@PathVariable Long id) {
+		Car car = carService.findById(id);
+		return car;
+	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping("admin/cars")
+	public Car addCar(@Valid @RequestBody Car car) {
+		return carService.save(car);
+	}
+
+	@PutMapping("employee/cars")
+	public Car updateCar(@Valid @RequestBody Car car) {
+		return carService.save(car);
+	}
+
+	@DeleteMapping(value = "admin/cars/{id}")
+	public void deleteCar(@PathVariable Long id) {
+		carService.delete(id);
+	}
+
+}

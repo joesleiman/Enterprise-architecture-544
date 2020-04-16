@@ -1,7 +1,5 @@
 package edu.miu.carRental;
 
-
-
 import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
@@ -25,42 +23,32 @@ public class CarRentalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CarRentalApplication.class, args);
 	}
-	
+
 	@Bean
-    public Docket api() { 
-        return new Docket(DocumentationType.SWAGGER_2)  
-          .select()  
-          .apis(RequestHandlerSelectors.basePackage("edu.miu.carRental"))                     
-          .paths(PathSelectors.any())                          
-          .build()
-          .apiInfo(apiInfo());                                           
-    }
-    
-    private ApiInfo apiInfo() {
-        return new ApiInfo(
-          "CarRental API", 
-          "Implementation of CarRental API April 2020", 
-          "TOGETHER TEAM", 
-          "Terms of service", 
-          null, 
-          "", 
-          "www.miu.edu", Collections.emptyList());
-    }
-    
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource
-          = new ReloadableResourceBundleMessageSource();
-         
-        messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-    
-    @Bean
-    public LocalValidatorFactoryBean getValidator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-        return bean;
-    }
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("edu.miu.carRental")).paths(PathSelectors.any()).build()
+				.apiInfo(apiInfo());
+	}
+
+	private ApiInfo apiInfo() {
+		return new ApiInfo("CarRental API", "Implementation of CarRental API April 2020", "TOGETHER TEAM",
+				"Terms of service", null, "", "www.miu.edu", Collections.emptyList());
+	}
+
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
+	public LocalValidatorFactoryBean getValidator() {
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
+	}
+
 }

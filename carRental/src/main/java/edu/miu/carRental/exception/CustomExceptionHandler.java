@@ -17,50 +17,40 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class CustomExceptionHandler extends ResponseEntityExceptionHandler 
-{
-    private String INCORRECT_REQUEST = "INCORRECT_REQUEST";
-    private String BAD_REQUEST = "BAD_REQUEST";
-     
-    @ExceptionHandler(RecordNotFoundException.class)
-	public final ResponseEntity<ErrorResponse> handleUserNotFoundException
-                        (RecordNotFoundException ex, WebRequest request) 
-    {
-        List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, details);
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-     
-    @ExceptionHandler(MissingHeaderInfoException.class)
-    public final ResponseEntity<ErrorResponse> handleInvalidTraceIdException
-                        (MissingHeaderInfoException ex, WebRequest request) {
-        List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse(BAD_REQUEST, details);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-    
-    // error handle for @Valid
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status, WebRequest request) {
+public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	private String INCORRECT_REQUEST = "INCORRECT_REQUEST";
+	private String BAD_REQUEST = "BAD_REQUEST";
 
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", status.value());
+	@ExceptionHandler(RecordNotFoundException.class)
+	public final ResponseEntity<ErrorResponse> handleUserNotFoundException(RecordNotFoundException ex,
+			WebRequest request) {
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse(INCORRECT_REQUEST, details);
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
 
-        //Get all errors
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.toList());
+	@ExceptionHandler(MissingHeaderInfoException.class)
+	public final ResponseEntity<ErrorResponse> handleInvalidTraceIdException(MissingHeaderInfoException ex,
+			WebRequest request) {
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse(BAD_REQUEST, details);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
 
-        body.put("errors", errors);
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		Map<String, Object> body = new LinkedHashMap<>();
+		body.put("timestamp", new Date());
+		body.put("status", status.value());
+		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
+				.collect(Collectors.toList());
+		body.put("errors", errors);
+		return new ResponseEntity<>(body, headers, status);
 
-        return new ResponseEntity<>(body, headers, status);
+	}
 
-    }
 }

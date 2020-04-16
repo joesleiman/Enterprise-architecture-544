@@ -18,38 +18,43 @@ import edu.miu.carRental.service.AddressService;
 
 @RestController
 public class AddressController {
-		
+
 	private AddressService addressService;
-	
+
 	@Autowired
 	public AddressController(AddressService as) {
 		this.addressService = as;
 	}
-	
+
 	@PostMapping("/address")
-    public Address add(@Valid @RequestBody Address address){
-        return addressService.save(address);
-    }
-	
-    @GetMapping("/employee/address")
-    public List<Address> getAllAddress() {
-        return addressService.findAll();
-    }
-    @GetMapping("employee/address/{id}")
-    public Address getAddress(@PathVariable Long id){
-    	Address address= addressService.findById(id);
-        return address;
-    }
-    @PostMapping("admin/address")
-    public Address addAddress(@Valid @RequestBody Address address){
-        return addressService.save(address);
-    }
-    @PutMapping("employee/address")
-    public Address updateAddress(@RequestBody Address address){
-        return addressService.save(address);
-    }
-    @DeleteMapping(value ="admin/address/{id}")
-    public void deleteAddress(@PathVariable Long id){
-    	addressService.delete(id);
-    }
+	public Address add(@Valid @RequestBody Address address) {
+		return addressService.save(address);
+	}
+
+	@GetMapping("/employee/address")
+	public List<Address> getAllAddress() {
+		return addressService.findAll();
+	}
+
+	@GetMapping("employee/address/{id}")
+	public Address getAddress(@PathVariable Long id) {
+		Address address = addressService.findById(id);
+		return address;
+	}
+
+	@PostMapping("admin/address")
+	public Address addAddress(@Valid @RequestBody Address address) {
+		return addressService.save(address);
+	}
+
+	@PutMapping("employee/address")
+	public Address updateAddress(@RequestBody Address address) {
+		return addressService.save(address);
+	}
+
+	@DeleteMapping(value = "admin/address/{id}")
+	public void deleteAddress(@PathVariable Long id) {
+		addressService.delete(id);
+	}
+
 }

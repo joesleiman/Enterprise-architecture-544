@@ -18,34 +18,39 @@ import edu.miu.carRental.service.CustomerService;
 
 @RestController
 public class CustomerController {
-	
+
 	@Autowired
 	private CustomerService customerService;
-	
-    @PostMapping("/customer_info")
-    public Customer add(@Valid @RequestBody Customer customer){
-        return customerService.save(customer);
-    }
-	
-    @GetMapping("/employee/customers")
-    public List<Customer> getAllCustomer() {
-        return customerService.findAll();
-    }
-    @GetMapping("employee/customers/{id}")
-    public Customer getCustomer(@PathVariable Long id){
-    	Customer customer= customerService.findById(id);
-        return customer;
-    }
-    @PostMapping("admin/customers")
-    public Customer addCustomer(@Valid @RequestBody Customer customer){
-        return customerService.save(customer);
-    }
-    @PutMapping("employee/customers")
-    public Customer updateCustomer(@Valid @RequestBody Customer customer){
-        return customerService.save(customer);
-    }
-    @DeleteMapping(value ="admin/customers/{id}")
-    public void deleteCustomer(@PathVariable Long id){
-    	customerService.delete(id);
-    }
+
+	@PostMapping("/customer_info")
+	public Customer add(@Valid @RequestBody Customer customer) {
+		return customerService.save(customer);
+	}
+
+	@GetMapping("/employee/customers")
+	public List<Customer> getAllCustomer() {
+		return customerService.findAll();
+	}
+
+	@GetMapping("employee/customers/{id}")
+	public Customer getCustomer(@PathVariable Long id) {
+		Customer customer = customerService.findById(id);
+		return customer;
+	}
+
+	@PostMapping("admin/customers")
+	public Customer addCustomer(@Valid @RequestBody Customer customer) {
+		return customerService.save(customer);
+	}
+
+	@PutMapping("employee/customers")
+	public Customer updateCustomer(@Valid @RequestBody Customer customer) {
+		return customerService.save(customer);
+	}
+
+	@DeleteMapping(value = "admin/customers/{id}")
+	public void deleteCustomer(@PathVariable Long id) {
+		customerService.delete(id);
+	}
+
 }

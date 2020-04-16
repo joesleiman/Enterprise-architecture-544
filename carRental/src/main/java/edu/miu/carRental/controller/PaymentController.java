@@ -16,34 +16,36 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.miu.carRental.domain.Payment;
 import edu.miu.carRental.service.PaymentService;
 
-
 @RestController
 public class PaymentController {
-	
+
 	@Autowired
 	private PaymentService paymentService;
-	
+
 	@PostMapping("/payment")
-    public Payment add(@Valid @RequestBody Payment payment){
-        return paymentService.save(payment);
-    }
-	
-    @GetMapping("/employee/payments")
-    public List<Payment> getAllPayments() {
-        return paymentService.findAll();
-    }
-    @GetMapping("/employee/payments/{id}")
-    public Payment getPayment(@PathVariable Long id){
-    	Payment payment= paymentService.findById(id);
-        return payment;
-    }
-   
-    @PutMapping("/employee/payments")
-    public Payment updatePayment(@Valid @RequestBody Payment payment){
-        return paymentService.save(payment);
-    }
-    @DeleteMapping(value ="/admin/payments/{id}")
-    public void deletePayment(@PathVariable Long id){
-    	paymentService.delete(id);
-    }
+	public Payment add(@Valid @RequestBody Payment payment) {
+		return paymentService.save(payment);
+	}
+
+	@GetMapping("/employee/payments")
+	public List<Payment> getAllPayments() {
+		return paymentService.findAll();
+	}
+
+	@GetMapping("/employee/payments/{id}")
+	public Payment getPayment(@PathVariable Long id) {
+		Payment payment = paymentService.findById(id);
+		return payment;
+	}
+
+	@PutMapping("/employee/payments")
+	public Payment updatePayment(@Valid @RequestBody Payment payment) {
+		return paymentService.save(payment);
+	}
+
+	@DeleteMapping(value = "/admin/payments/{id}")
+	public void deletePayment(@PathVariable Long id) {
+		paymentService.delete(id);
+	}
+
 }

@@ -15,31 +15,30 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Customer {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerId;
-	
+
 	@Column(name = "first_name")
 	@NotEmpty
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	@NotEmpty
 	private String lastName;
-	
+
 	@Column(name = "customer_email")
 	@NotEmpty
 	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,3})$", message = "{Email}")
 	private String email;
-	
+
 	@Column(name = "date_of_birth")
 	@NotNull(message = "{Validation.required}")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
-	
-	public Customer() {
-		
-	}
+
+	public Customer() { }
 
 	public Long getCustomerId() {
 		return customerId;
@@ -80,6 +79,5 @@ public class Customer {
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
 
 }

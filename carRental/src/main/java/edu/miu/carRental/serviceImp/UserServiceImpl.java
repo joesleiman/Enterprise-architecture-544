@@ -19,33 +19,31 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
 	@Autowired
 	private RoleRepository roleRepo;
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
-		// TODO Auto-generated constructor stub
 		this.userRepository = userRepository;
 	}
 
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}
 
 	@Override
 	public User findById(Long id) {
-		// TODO Auto-generated method stub
 		return userRepository.findById(id)
 				.orElseThrow(() -> new RecordNotFoundException("User with id : " + id + " is not available"));
 	}
 
 	@Override
 	public User save(User user) {
-		// TODO Auto-generated method stub
 		String pass = user.getPassword();
 		user.setPassword(pass);
 		return userRepository.save(user);
@@ -60,7 +58,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User update(User user, Long id) {
-		// TODO Auto-generated method stub
 		return userRepository.findById(id).map(userToUpdate -> {
 			userToUpdate.setDateOfBirth(user.getDateOfBirth());
 			userToUpdate.setEmail(user.getEmail());
@@ -77,20 +74,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public void addAdminUser(User user) {
-
-		// bcrypt user password
 		user.setPassword(encodePassword(user.getPassword()));
 		HashSet<Role> roles = new HashSet<>();
-
 		roles.add(roleRepo.findByName("ROLE_ADMIN"));
 		user.setRoles(roles);
-
 		userRepository.save(user);
 	}
 
 	private String encodePassword(String password) {
 		return bCryptPasswordEncoder.encode(password);
-
 	}
 
 }
