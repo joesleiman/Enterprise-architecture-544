@@ -32,13 +32,11 @@ public class Payment {
 	private LocalDate paymentDate;
 
 	@Column(name = "card_number")
-	@NotEmpty
-	@Size(min = 16, max = 16, message = "{Size.name}")
+//	@Size(min = 16, max = 16, message = "{Size.name}")
     private Long cardNumber;
 
 	@Column(name = "card_cvv")
-	@NotEmpty
-	@Size(min = 3, max = 4, message = "{Size.name}")
+//	@Size(min = 3, max = 4, message = "{Size.name}")
     private Integer cardCVV;
     
 	@Column(name = "total_price") 

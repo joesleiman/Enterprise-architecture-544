@@ -50,7 +50,7 @@ public class Booking implements Serializable{
     private LocalDate endDate;
 	
 	@Column(name = "total_price", nullable = false)
-	@NotNull(message = "*Please provide total price")
+//	@NotNull(message = "*Please provide total price")
 	private Double totalPrice;
 	
 	@Column(name = "booking_status", nullable = false)
@@ -139,8 +139,9 @@ public class Booking implements Serializable{
 	}
 
 	public void setTotalPrice(Double totalPrice) {
-		long duration = ChronoUnit.DAYS.between(this.startDate, this.endDate);
-		this.totalPrice = duration*this.getCar().getPricePerDay();
+		this.totalPrice = totalPrice;
+//		long duration = ChronoUnit.DAYS.between(this.startDate, this.endDate);
+//		this.totalPrice = duration*this.getCar().getPricePerDay();
 	}
 
 	public Car getCar() {
