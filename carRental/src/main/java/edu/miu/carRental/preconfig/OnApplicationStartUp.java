@@ -34,10 +34,9 @@ public class OnApplicationStartUp {
 
 	private void createAdminUser() {
 		List<User> users = userRepo.findAll();
-		Long count = users.stream()
-						  .filter(userElm -> userElm.getUsername().equalsIgnoreCase("admin"))
-						  .count();
-		if (count > 0) return;
+		Long count = users.stream().filter(userElm -> userElm.getUsername().equalsIgnoreCase("admin")).count();
+		if (count > 0)
+			return;
 		User user = new User();
 		user.setFirstName("admin");
 		user.setLastName("admin");

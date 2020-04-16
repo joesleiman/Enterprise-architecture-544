@@ -33,28 +33,15 @@ public class Address {
 
 	@Column(name = "zip_code")
 	@NotEmpty
-	@Range(min=1, max=99999, message= "{Range.zipcode}")
-    private String zipCode;
-    
+	@Range(min = 1, max = 99999, message = "{Range.zipcode}")
+	private String zipCode;
+
 	@Column(name = "country")
 	@NotEmpty
-    private String country;
-	
-	public Address(){
-		
-	}
+	private String country;
 
-	
-	public Address(@NotEmpty String streetLine, @NotEmpty String city, @NotEmpty String state,
-			@NotEmpty @Range(min = 1, max = 99999, message = "{Range.zipcode}") String zipCode, @NotEmpty String country) {
-		super();
-		this.streetLine = streetLine;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		this.country = country;
+	public Address() {
 	}
-
 
 	public Long getAddressId() {
 		return addressId;

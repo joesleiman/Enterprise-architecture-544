@@ -59,12 +59,13 @@ public class User {
 	@NotEmpty
 	private String password;
 
-	@NotNull(message = "*Please provide role") 
+	@NotNull(message = "*Please provide role")
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<@Valid Role> roles;
 
-	public User() { }
+	public User() {
+	}
 
 	public User(User user) {
 		this.userId = user.getUserId();

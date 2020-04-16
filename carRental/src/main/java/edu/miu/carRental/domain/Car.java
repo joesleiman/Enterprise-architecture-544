@@ -48,9 +48,12 @@ public class Car {
 	private String carStatus;
 
 	@Column(name = "price_per_day")
+//	@NotEmpty   
 	private Double pricePerDay;
 
-	public Car() { }
+	public Car() {
+
+	}
 
 	public String getCarStatus() {
 		return carStatus;

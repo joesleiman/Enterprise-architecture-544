@@ -38,7 +38,8 @@ public class Customer {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 
-	public Customer() { }
+	public Customer() {
+	}
 
 	public Long getCustomerId() {
 		return customerId;

@@ -41,7 +41,7 @@ public class PaymentController {
 	public Payment add(@Valid @RequestBody Payment payment) {
 		return paymentService.save(payment);
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@PutMapping("payment/update")
 	public Payment updatePayment(@Valid @RequestBody Payment payment) {

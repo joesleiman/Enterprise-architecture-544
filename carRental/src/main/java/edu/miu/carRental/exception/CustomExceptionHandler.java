@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
-	
+
 	private String INCORRECT_REQUEST = "INCORRECT_REQUEST";
 	private String BAD_REQUEST = "BAD_REQUEST";
 

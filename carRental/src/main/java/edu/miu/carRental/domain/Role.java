@@ -26,7 +26,8 @@ public class Role {
 	@ManyToMany(mappedBy = "roles")
 	private Set<@Valid User> users;
 
-	public Role() { }
+	public Role() {
+	}
 
 	public Role(@NotEmpty String roleName) {
 		super();
