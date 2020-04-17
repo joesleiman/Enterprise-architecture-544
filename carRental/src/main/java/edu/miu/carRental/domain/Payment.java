@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,18 +31,18 @@ public class Payment {
 	private LocalDate paymentDate;
 
 	@Column(name = "card_number")
-//	@Size(min = 16, max = 16, message = "{Size.name}")
-	private Long cardNumber;
+	@Size(min = 16, max = 16, message = "{Size.name}")
+	private String cardNumber;
 
 	@Column(name = "card_cvv")
-//	@Size(min = 3, max = 4, message = "{Size.name}")
-	private Integer cardCVV;
+	@Size(min = 3, max = 4, message = "{Size.name}")
+	private String cardCVV;
 
 	@Column(name = "total_price")
 	private Double totalPrice;
 
 	@Column(name = "payment_status")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String paymentStatus;
 
 	@ManyToOne
@@ -67,19 +68,19 @@ public class Payment {
 		this.paymentDate = paymentDate;
 	}
 
-	public Long getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
-	public void setCardNumber(Long cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 
-	public Integer getCardCVV() {
+	public String getCardCVV() {
 		return cardCVV;
 	}
 
-	public void setCardCVV(Integer cardCVV) {
+	public void setCardCVV(String cardCVV) {
 		this.cardCVV = cardCVV;
 	}
 

@@ -33,17 +33,6 @@ public class CarController {
 	@Autowired
 	private BookingService bookingService;
 
-	@GetMapping("car/get_all_public")
-	public List<Car> getAllCarsPublic() {
-		return carService.findAll();
-	}
-
-	@GetMapping("car/get_public/{id}")
-	public Car getCarPublic(@PathVariable Long id) {
-		Car car = carService.findById(id);
-		return car;
-	}
-
 	@GetMapping("car/check_availiable")
 	public List<Car> getAvailableCars(@RequestParam String start, String end) {
 		List<Car> cars = carService.findAll().stream().filter(car -> car.getCarStatus().equals("available"))
@@ -61,13 +50,11 @@ public class CarController {
 		return cars;
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("car/get_all")
 	public List<Car> getAllCars() {
 		return carService.findAll();
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("car/get/{id}")
 	public Car getCar(@PathVariable Long id) {
 		Car car = carService.findById(id);
@@ -80,7 +67,6 @@ public class CarController {
 		return carService.save(car);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@PutMapping("car/update")
 	public Car updateCar(@Valid @RequestBody Car car) {
 		return carService.save(car);

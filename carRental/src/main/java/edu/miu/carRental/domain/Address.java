@@ -20,27 +20,35 @@ public class Address {
 	private Long addressId;
 
 	@Column(name = "street_line")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String streetLine;
 
 	@Column(name = "city")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String city;
 
 	@Column(name = "state")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String state;
 
 	@Column(name = "zip_code")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	@Range(min = 1, max = 99999, message = "{Range.zipcode}")
 	private String zipCode;
 
 	@Column(name = "country")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String country;
 
 	public Address() {
+	}
+
+	public Address(String streetLine, String city, String state, String zipCode, String country) {
+		this.streetLine = streetLine;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.country = country;
 	}
 
 	public Long getAddressId() {

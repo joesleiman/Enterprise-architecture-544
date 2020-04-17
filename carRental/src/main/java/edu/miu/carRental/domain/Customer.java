@@ -21,15 +21,15 @@ public class Customer {
 	private Long customerId;
 
 	@Column(name = "first_name")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String firstName;
 
 	@Column(name = "last_name")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String lastName;
 
 	@Column(name = "customer_email")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,3})$", message = "{Email}")
 	private String email;
 

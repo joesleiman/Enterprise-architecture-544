@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -24,6 +26,7 @@ public class Role {
 	private String name;
 
 	@ManyToMany(mappedBy = "roles")
+	@JsonIgnore
 	private Set<@Valid User> users;
 
 	public Role() {

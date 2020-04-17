@@ -27,26 +27,23 @@ public class AddressController {
 		this.addressService = addressService;
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("address/get_all")
 	public List<Address> getAllAddress() {
 		return addressService.findAll();
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("address/get/{id}")
 	public Address getAddress(@PathVariable Long id) {
 		Address address = addressService.findById(id);
 		return address;
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@PostMapping("address/add")
 	public Address addAddress(@Valid @RequestBody Address address) {
 		return addressService.save(address);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PutMapping("address/update")
 	public Address updateAddress(@RequestBody Address address) {
 		return addressService.save(address);

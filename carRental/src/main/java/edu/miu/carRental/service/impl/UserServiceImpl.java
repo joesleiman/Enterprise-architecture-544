@@ -44,8 +44,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User save(User user) {
-		String pass = user.getPassword();
-		user.setPassword(pass);
+		user.setPassword(encodePassword(user.getPassword()));
 		return userRepository.save(user);
 	}
 
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService {
 			userToUpdate.setLastName(user.getLastName());
 			userToUpdate.setPhoneNumber(user.getPhoneNumber());
 			userToUpdate.setRoles(user.getRoles());
-			userToUpdate.setPassword(user.getPassword());
+			userToUpdate.setPassword(encodePassword(user.getPassword()));
 			return userRepository.save(userToUpdate);
 		}).orElseGet(() -> {
 			return userRepository.save(user);

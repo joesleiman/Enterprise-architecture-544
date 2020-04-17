@@ -24,12 +24,6 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingService;
 
-	@PostMapping("booking/add_public")
-	public Booking addBookingPublic(@Valid @RequestBody Booking booking) {
-		booking.setReferenceNumber(getSaltString());
-		return bookingService.save(booking);
-	}
-
 	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@GetMapping("booking/search/{referenceNumber}")
 	public List<Booking> searchBooking(@PathVariable String referenceNumber) {
@@ -48,19 +42,17 @@ public class BookingController {
 		return bookingService.findByReferenceNumber(referenceNumber);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("booking/get_all")
 	public List<Booking> getAllBookings() {
 		return bookingService.findAll();
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-	@GetMapping("booking/get_id/{id}")
+	@GetMapping("booking/get/{id}")
 	public Booking getBooking(@PathVariable Long id) {
 		return bookingService.findById(id);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@PostMapping("booking/add")
 	public Booking addBooking(@Valid @RequestBody Booking booking) {
 		booking.setReferenceNumber(getSaltString());
@@ -73,22 +65,15 @@ public class BookingController {
 		return bookingService.save(booking);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "booking/delete/{id}")
 	public void deleteBooking(@PathVariable Long id) {
 		bookingService.delete(id);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@PutMapping("booking/change_status")
 	public Booking changeBookingStatus(@RequestBody Booking booking) {
 		return bookingService.changeBookingStatus(booking.getReferenceNumber(), booking.getBookingStatus());
-	}
-
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-	@GetMapping("bookings/search_string/{searchString}")
-	public List<Booking> searchBookings(@PathVariable String searchString) {
-		return bookingService.searchBookings(searchString);
 	}
 
 	protected String getSaltString() {

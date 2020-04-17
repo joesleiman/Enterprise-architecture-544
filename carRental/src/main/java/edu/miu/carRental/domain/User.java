@@ -18,6 +18,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,11 +31,11 @@ public class User {
 	private long userId;
 
 	@Column(name = "first_name")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String firstName;
 
 	@Column(name = "last_name")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String lastName;
 
 	@Column(name = "date_of_birth")
@@ -47,16 +48,16 @@ public class User {
 	private String email;
 
 	@Column(name = "phone_number")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	@Pattern(regexp = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$", message = "* please provide valid phone number")
 	private String phoneNumber;
 
 	@Column(name = "user_name", unique = true)
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
+	@Size(min = 5, max = 14, message = "{Size.name}")
 	private String username;
 
 	@Column(name = "password")
-	@NotEmpty
 	private String password;
 
 	@NotNull(message = "*Please provide role")

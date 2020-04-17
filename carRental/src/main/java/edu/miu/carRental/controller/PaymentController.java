@@ -23,26 +23,23 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("payment/get_all")
 	public List<Payment> getAllPayments() {
 		return paymentService.findAll();
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("payment/get/{id}")
 	public Payment getPayment(@PathVariable Long id) {
 		Payment payment = paymentService.findById(id);
 		return payment;
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_USER')")
 	@PostMapping("payment/add")
 	public Payment add(@Valid @RequestBody Payment payment) {
 		return paymentService.save(payment);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@PutMapping("payment/update")
 	public Payment updatePayment(@Valid @RequestBody Payment payment) {
 		return paymentService.save(payment);

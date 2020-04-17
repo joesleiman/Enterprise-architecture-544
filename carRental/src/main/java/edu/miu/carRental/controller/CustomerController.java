@@ -23,13 +23,11 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("customer/get_all")
 	public List<Customer> getAllCustomer() {
 		return customerService.findAll();
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("customer/get/{id}")
 	public Customer getCustomer(@PathVariable Long id) {
 		Customer customer = customerService.findById(id);
@@ -42,7 +40,6 @@ public class CustomerController {
 		return customerService.save(customer);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@PutMapping("customer/update")
 	public Customer updateCustomer(@Valid @RequestBody Customer customer) {
 		return customerService.save(customer);

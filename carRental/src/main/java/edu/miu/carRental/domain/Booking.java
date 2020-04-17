@@ -2,6 +2,7 @@ package edu.miu.carRental.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Booking implements Serializable {
 	private Long bookingId;
 
 	@Column(name = "reference_number", nullable = false, unique = true)
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String referenceNumber;
 
 	@Column(name = "booking_date", nullable = false)
@@ -49,11 +50,10 @@ public class Booking implements Serializable {
 	private LocalDate endDate;
 
 	@Column(name = "total_price", nullable = false)
-//	@NotNull(message = "*Please provide total price")
 	private Double totalPrice;
 
 	@Column(name = "booking_status", nullable = false)
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String bookingStatus;
 
 	@Valid
@@ -108,33 +108,26 @@ public class Booking implements Serializable {
 
 	public LocalDate getBookingDate() {
 		return this.bookingDate;
-		// return Date.valueOf(bookingDate).toLocalDate().plusDays(1);
 	}
 
 	public void setBookingDate(LocalDate bookingDate) {
-		// this.bookingDate = LocalDate.now();
 		this.bookingDate = bookingDate;
-		// this.bookingDate = Date.valueOf(bookingDate).toLocalDate();
 	}
 
 	public LocalDate getStartDate() {
 		return startDate;
-		// return Date.valueOf(startDate).toLocalDate().plusDays(1);
 	}
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
-		// this.startDate = Date.valueOf(startDate).toLocalDate().plusDays(1);
 	}
 
 	public LocalDate getEndDate() {
 		return endDate;
-		// return Date.valueOf(endDate).toLocalDate().plusDays(1);
 	}
 
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
-		// this.endDate = Date.valueOf(endDate).toLocalDate().plusDays(1);
 	}
 
 	public Double getTotalPrice() {
@@ -142,9 +135,8 @@ public class Booking implements Serializable {
 	}
 
 	public void setTotalPrice(Double totalPrice) {
-		this.totalPrice = totalPrice;
-//		long duration = ChronoUnit.DAYS.between(this.startDate, this.endDate);
-//		this.totalPrice = duration*this.getCar().getPricePerDay();
+		long duration = ChronoUnit.DAYS.between(this.startDate, this.endDate);
+		this.totalPrice = duration*this.getCar().getPricePerDay();
 	}
 
 	public Car getCar() {

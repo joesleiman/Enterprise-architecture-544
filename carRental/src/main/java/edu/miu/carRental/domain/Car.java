@@ -19,36 +19,35 @@ public class Car {
 	private Long carId;
 
 	@Column(name = "car_vin_number")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	@Size(min = 4, max = 19, message = "{Size.name}")
 	private String carVinNumber;
 
 	@Column(name = "plate_number")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	@Size(min = 4, max = 19, message = "{Size.name}")
 	private String plateNumber;
 
 	@Column(name = "make")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String make;
 
 	@Column(name = "model")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String model;
 
 	@Column(name = "year")
 	private Integer year;
 
 	@Column(name = "category_name")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String categoryName;
 
 	@Column(name = "car_status")
-	@NotEmpty
+	@NotEmpty(message = "{Validation.required}")
 	private String carStatus;
 
 	@Column(name = "price_per_day")
-//	@NotEmpty   
 	private Double pricePerDay;
 
 	public Car() {
